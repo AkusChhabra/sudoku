@@ -108,35 +108,3 @@ print_grid(temp)
 
 print('\n Call Sudoku: ')
 sudoku(temp)
-
-
-
-# 80% of information removed from puzzle
-# removed_vals = vals[0:int(len(vals)*0.80)]
-# for i in range(len(shuff_list)):
-#     shuff_list[][]
-
-    # # Set positions in shuff_list to zero if that position is in removed_vals
-    # ind, num_of_soln = 0, 0;
-    # while ind < len(vals):
-    #     # Define exit condition of solution
-    #     if num_of_soln > 1:
-    #         break;
-    #     # Extract row and col indices from the shuffled 2-d list
-    #     row = vals[ind] % 9;
-    #     col = vals[ind] // 9;
-        
-    #     # Copy the value at the location in case of accidental removal
-    #     hold_val = copy.copy(shuff_list[row][col]);
-    #     # Set value of shuffled list position to zero
-    #     shuff_list[row][col] = 0;
-        
-    #     # Solver checks if the position can be set to zero or not by validating possible solutions
-    #     if solver(shuff_list, row, col):
-    #         ind += 1; # Increment to next position to be removed
-    #         continue
-    #     # If the position cannot be set to zero, reset the position in the shuffled list to the held value
-    #     shuff_list[row][col] = hold_val;
-
-
-

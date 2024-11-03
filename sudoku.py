@@ -35,20 +35,13 @@ def check_validity(grid, row, col, val):
     grid_alt = [*zip(*grid)]; # Transposes grid input
     
     # Checks row and column for duplicate number
-    #if (val in grid_alt[col] and val == grid_alt[col][row]) or (val in grid[row] and val == grid[row][col]):
     if val in grid_alt[col] or val in grid[row]:
         return False
     
     # Check the 3 by 3 box for a duplicate number
     init_col = col - col % 3;
     init_row = row - row % 3;
-    
-    # for i in range(3):
-    #     for j in range(3):
-    #         if grid[i + init_row][j + init_col] == val:
-    #             return False
 
-    #sliced_grid = [row[init_row:init_row+3] for row in grid][init_col:init_col+3];
     sliced_grid = [col[init_col:init_col+3] for col in grid][init_row:init_row+3];
     
     for i in range(3):
