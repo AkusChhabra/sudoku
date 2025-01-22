@@ -40,7 +40,7 @@ def fill_element(grid, row, col):
     ## Exit condition
     if col == 0 and row == 9:
         return True
-    
+
     # Check if the number is greater than 0
     if grid[row][col] > 0:
         # Go to the next column if number is greater than 0
@@ -73,20 +73,14 @@ grid = [[3, 1, 5, 6, 2, 7, 4, 9, 8],
 
 # Copy grid list to another variable
 shuff_list = copy.copy(grid);
-# Shuffle the list
-#shuffle(shuff_list)
 
 # Create a list of indices from 0 to 80 and shuffle them
 vals = [x for x in range(1, len(grid)*len(grid[1]))]
 shuffle(vals)
-vals = vals[0:int(len(vals)*0.25)]
+vals = vals[0:int(len(vals)*0.3)]
 
-# remove first value
-# if sudoku grid is solvable, remove next value until grid is not solvable
-
+# Remove values from grid based on randomized indices
 for ind in range(len(vals)):
-    # Define exit condition
-    
     # Define current index
     row = vals[ind] % 9;
     col = vals[ind] // 9;
@@ -101,37 +95,10 @@ for ind in range(len(vals)):
         val = shuff_list[row][col];
         shuff_list[row][col] = 0;
         temp = copy.deepcopy(shuff_list);
-        # if check_grid(temp):
-        #     continue
-        # else:
-        #     shuff_list[row][col] = val;
-        #     break
     else:
         temp = shuff_list;
         continue
-        #break;
 
-# num_of_soln = 0;
-# for ind in range(len(vals)):
-#     # Define exit condition of solution
-#     if num_of_soln > 1:
-#         break;
-#     # Extract row and col indices from the shuffled 2-d list
-#     row = vals[ind] % 9;
-#     col = vals[ind] // 9;   
-        
-    # # Copy the value at the location in case of accidental removal
-    # hold_val = copy.deepcopy(shuff_list[row][col]);
-    # temp = copy.deepcopy(shuff_list);
-    # # Set value of shuffled list position to zero
-    # temp[row][col] = 0;
-    # if fill_element(temp, 0, 0):
-    #     shuff_list[row][col] = 0;
-    #     temp = copy.deepcopy(shuff_list);
-    #     continue
-    # else:
-    #     temp = shuff_list;
-    #     break;
 print('\n Print Result')
 print_grid(temp)
 
