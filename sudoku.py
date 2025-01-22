@@ -84,7 +84,7 @@ def print_grid(grid):
         print(grid[i])
 
 # Call recursive function and print solution
-def sudoku(grid):
+def sudoku_init(grid):
     # fill_element(grid, 0, 0)
     # print_grid(grid)
     if fill_element(grid, 0, 0):
@@ -92,7 +92,7 @@ def sudoku(grid):
     else:
         print("Not a valid puzzle")
 # Call sudoku function
-sudoku(grid)
+sudoku_init(grid)
 
 
 

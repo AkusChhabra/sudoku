@@ -5,7 +5,8 @@ Sudoku Puzzle Randomizer
 @author: Akus C.
 """
 
-from sudoku import sudoku
+from check_grid_func import check_grid
+from sudoku import sudoku_init
 from random import shuffle
 import copy
 
@@ -60,51 +61,85 @@ def print_grid(grid):
 
 ## Declarations
 
-grid = [[3, 1, 6, 5, 2, 8, 4, 9, 7],
-        [5, 2, 1, 3, 4, 7, 8, 6, 9],
-        [2, 8, 7, 6, 5, 4, 9, 3, 1],
-        [6, 4, 3, 9, 1, 5, 7, 8, 2],
-        [9, 7, 2, 8, 6, 3, 1, 4, 5],
-        [7, 5, 8, 4, 9, 1, 6, 2, 3],
-        [1, 3, 4, 7, 8, 9, 2, 5, 6],
-        [8, 6, 9, 1, 3, 2, 5, 7, 4],
-        [4, 9, 5, 2, 7, 6, 3, 1, 8]];
+grid = [[3, 1, 5, 6, 2, 7, 4, 9, 8],
+        [6, 2, 4, 1, 9, 8, 3, 5, 7],
+        [9, 8, 7, 5, 3, 4, 2, 1, 6],
+        [1, 4, 3, 9, 6, 2, 7, 8, 5],
+        [2, 7, 6, 8, 5, 3, 1, 4, 9],
+        [5, 9, 8, 4, 7, 1, 6, 2, 3],
+        [7, 5, 1, 3, 4, 9, 8, 6, 2],
+        [8, 3, 9, 2, 1, 6, 5, 7, 4],
+        [4, 6, 2, 7, 8, 5, 9, 3, 1]];
 
-#
 # Copy grid list to another variable
 shuff_list = copy.copy(grid);
 # Shuffle the list
 #shuffle(shuff_list)
 
 # Create a list of indices from 0 to 80 and shuffle them
-vals = [x for x in range(1,9*9)]
+vals = [x for x in range(1, len(grid)*len(grid[1]))]
 shuffle(vals)
-vals = vals[0:int(len(vals)*0.02)]
+vals = vals[0:int(len(vals)*0.25)]
 
-num_of_soln = 0;
+# remove first value
+# if sudoku grid is solvable, remove next value until grid is not solvable
+
 for ind in range(len(vals)):
-    # Define exit condition of solution
-    if num_of_soln > 1:
-        break;
-    # Extract row and col indices from the shuffled 2-d list
+    # Define exit condition
+    
+    # Define current index
     row = vals[ind] % 9;
-    col = vals[ind] // 9;   
-        
+    col = vals[ind] // 9;
+    
     # Copy the value at the location in case of accidental removal
     hold_val = copy.deepcopy(shuff_list[row][col]);
     temp = copy.deepcopy(shuff_list);
+    
     # Set value of shuffled list position to zero
     temp[row][col] = 0;
     if fill_element(temp, 0, 0):
+        val = shuff_list[row][col];
         shuff_list[row][col] = 0;
         temp = copy.deepcopy(shuff_list);
-        continue
+        # if check_grid(temp):
+        #     continue
+        # else:
+        #     shuff_list[row][col] = val;
+        #     break
     else:
         temp = shuff_list;
-        break;
+        continue
+        #break;
+
+# num_of_soln = 0;
+# for ind in range(len(vals)):
+#     # Define exit condition of solution
+#     if num_of_soln > 1:
+#         break;
+#     # Extract row and col indices from the shuffled 2-d list
+#     row = vals[ind] % 9;
+#     col = vals[ind] // 9;   
+        
+    # # Copy the value at the location in case of accidental removal
+    # hold_val = copy.deepcopy(shuff_list[row][col]);
+    # temp = copy.deepcopy(shuff_list);
+    # # Set value of shuffled list position to zero
+    # temp[row][col] = 0;
+    # if fill_element(temp, 0, 0):
+    #     shuff_list[row][col] = 0;
+    #     temp = copy.deepcopy(shuff_list);
+    #     continue
+    # else:
+    #     temp = shuff_list;
+    #     break;
 print('\n Print Result')
 print_grid(temp)
 
 
 print('\n Call Sudoku: ')
-sudoku(temp)
+hold = copy.deepcopy(sudoku_init(temp))
+
+
+print('\n Check Grid Validity:')
+check_grid(temp)
+
